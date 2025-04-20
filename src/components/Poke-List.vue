@@ -3,8 +3,8 @@
         <div>
             <form class="d-flex mt-5">
                 <input id="Pokename" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button @click="serchPokemon" class="btn btn-outline-success m" type="button">Buscar</button>
-                <button @click="volver" class="btn btn-outline-danger " type="button" style="margin-left: 10px;">Volver</button>
+                <button   @click="serchPokemon" class="btn btn-outline-success m" type="button">Buscar</button>
+                <button  @click="volver" class="btn btn-outline-danger " type="button" style="margin-left: 10px;">Volver</button>
             </form>
 
             <div id="divTotal" class="row row-gap-3 mt-4">
@@ -26,9 +26,13 @@
 
     </div>
 
+   
+
 </template>
 
 <script>
+
+
 import PokeCard from './Poke-Card.vue';
 const getPokemons= async(CntPoke)=>{
     
@@ -46,6 +50,7 @@ const getPokemons= async(CntPoke)=>{
 }
 
 export default{
+    
     props:{
         CntPoke:{
             required:true,
@@ -83,7 +88,7 @@ export default{
      async serchPokemon(){
 
         if(Pokename.value===""){
-            alert("No ha ingresado un nombre valido")
+            this.$swal.fire("Opss","No ha ingresado un nombre para realizar la busqueda","info");
             return;
 
         }
@@ -93,7 +98,7 @@ export default{
             if(resp.ok === false){
                 
                 if(resp.status===404){
-                    alert(`No hemos encontrado un pokemon con este nombre ${Pokename.value}, por favor verifica la informacion`)
+                    this.$swal.fire("Oops",`No hemos encontrado un pokemon con este nombre ${Pokename.value}, por favor verifica la informacion.`,"error");
                     Pokename.value=""
                     return
 
